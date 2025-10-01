@@ -7,11 +7,11 @@ Sistem ini menerima CV dan laporan proyek, lalu menganalisisnya terhadap deskrip
 
 ## Arsitektur
 
-Arsitektur ini dirancang untuk memproses evaluasi CV dan laporan proyek secara asinkron. Ini memastikan bahwa pengguna mendapatkan respons cepat tanpa harus menunggu proses AI yang kompleks selesai. Alur kerja dibagi menjadi beberapa tahap utama yang dikoordinasikan oleh API Layer, Worker, dan berbagai layanan pendukung.
+Arsitektur ini dirancang untuk memproses evaluasi CV dan laporan proyek secara asinkron. Ini memastikan bahwa mendapatkan respons cepat tanpa harus menunggu proses AI yang kompleks selesai. Alur kerja dibagi menjadi beberapa tahap utama yang dikoordinasikan oleh API Layer, Worker, dan berbagai layanan pendukung.
 
 ![Diagram Arsitektur Sistem](arsitektur.png)
 
-1. **Proses Unggah Dokumen**
+**1. Proses Unggah Dokumen**
 
 - Permintaan Awal: Memulai proses dengan mengirimkan permintaan HTTP POST ke endpoint /upload. Permintaan ini berisi dua file: CV dan laporan proyek.
 
@@ -19,17 +19,17 @@ Arsitektur ini dirancang untuk memproses evaluasi CV dan laporan proyek secara a
 
 - Pencatatan Awal: Setelah file berhasil diunggah, API Layer membuat entri baru di Database (PostgreSQL). Entri ini mencakup ID unik untuk sesi evaluasi ini, URL ke file yang disimpan di MinIO, dan status awal, yaitu "uploaded".
 
-- Respons Cepat: Sistem segera mengembalikan ID unik dan URL file tersebut kepada pengguna. Langkah ini sangat cepat karena tidak melibatkan pemrosesan AI.
+- Respons Cepat: Sistem segera mengembalikan ID unik dan URL file. Langkah ini sangat cepat karena tidak melibatkan pemrosesan AI.
 
-2. **Memulai Proses Evaluasi**
+**2. Memulai Proses Evaluasi**
 
-- Pemicu Evaluasi: Dengan menggunakan ID yang diterima dari langkah pertama, Pengguna mengirimkan permintaan HTTP POST kedua ke endpoint /evaluations/:id. Ini berfungsi sebagai pemicu untuk memulai analisis dokumen.
+- Pemicu Evaluasi: Dengan menggunakan ID yang diterima dari langkah pertama mengirimkan permintaan HTTP POST kedua ke endpoint /evaluations/:id. Ini berfungsi sebagai pemicu untuk memulai analisis dokumen.
 
 - Penambahan Job: API Layer menerima permintaan ini, lalu menambahkan sebuah "job" baru ke dalam Job Queue (BullMQ on Redis). Job ini berisi ID evaluasi yang perlu diproses. Status entri di Database (PostgreSQL) diperbarui menjadi "queued".
 
 - Respons Antrean: API Layer langsung merespons pengguna dengan status "queued", menandakan bahwa permintaan evaluasi telah diterima dan akan segera diproses.
 
-3. **Eksekusi oleh Worker di Latar Belakang**
+**3. Eksekusi oleh Worker di Latar Belakang**
 
 - Pengambilan Job: Sebuah Worker (NestJS), yang berjalan sebagai proses terpisah, terus memantau Job Queue. Ketika job baru tersedia, Worker akan mengambilnya.
 
@@ -47,17 +47,24 @@ Arsitektur ini dirancang untuk memproses evaluasi CV dan laporan proyek secara a
 
 - Pembaruan Status Akhir: Worker kemudian memperbarui entri yang sesuai di Database (PostgreSQL) dengan hasil evaluasi dan mengubah statusnya menjadi "completed".
 
-4. **Mengecek dan Mengambil Hasil**
+**4. Mengecek dan Mengambil Hasil**
 
 - Permintaan Status: Kapan saja setelah memulai evaluasi, Pengguna dapat mengirimkan permintaan HTTP GET ke endpoint /evaluations/:id.
 
 - Pengecekan Database: API Layer akan memeriksa status entri di Database.
 
-5. **Pengiriman Hasil:**
+**5. Pengiriman Hasil:**
 
 - Jika statusnya masih "queued" atau "processing", API akan mengembalikan status tersebut.
 
-- Setelah Worker menyelesaikan tugasnya dan statusnya berubah menjadi "completed", API akan mengembalikan seluruh hasil evaluasi yang tersimpan di database kepada pengguna.
+- Setelah Worker menyelesaikan tugasnya dan statusnya berubah menjadi "completed", API akan mengembalikan seluruh hasil evaluasi yang tersimpan di database.
+
+---
+
+## Dokumentasi Api
+Untuk mempermudah pengujian endpoint, tersedia koleksi Postman yang bisa langsung diimpor.
+
+File: [Dokumentasi API Postman](./AI%20CV%20Analyzer.json)
 
 ---
 

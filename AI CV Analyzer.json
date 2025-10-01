@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "c03f7799-3bf0-4ea2-a406-8b87493b42bd",
+		"name": "CV Analyzer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18696549",
+		"_collection_link": "https://ntsdeveloper.postman.co/workspace/Hplus-Maxsol~c46a49f1-3ad2-4fc7-83be-8b324d19c6f6/collection/18696549-c03f7799-3bf0-4ea2-a406-8b87493b42bd?action=share&source=collection_link&creator=18696549"
+	},
+	"item": [
+		{
+			"name": "Upload",
+			"item": [
+				{
+					"name": "Upload CV & Project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/C:/Users/tamva/Downloads/budi cv.pdf"
+								},
+								{
+									"key": "projectReport",
+									"type": "file",
+									"src": "/C:/Users/tamva/Downloads/budi project report.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Evaluate",
+			"item": [
+				{
+					"name": "Get Evaluate by Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/evaluation/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"evaluation",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b90f4b59-d8ca-4ae8-b37f-94b74c72459e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluate CV by Id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cvUrl",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "projectReportUrl",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/evaluation/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"evaluation",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "b90f4b59-d8ca-4ae8-b37f-94b74c72459e"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
