@@ -160,7 +160,7 @@ docker-compose exec api pnpm exec ts-node src/database/seeds/seed.ts
 
 ### 1. Memulai Evaluasi Baru
 
-Endpoint ini menerima file CV dan laporan proyek lalu mengunggahnya.
+Endpoint ini menerima file CV dan laporan proyek lalu mengunggahnya. Bisa gunakan file dummy [CV](./budi%20cv.pdf) dan [Project Report](./budi%20project%20report.pdf) yang ada
 
 - **Endpoint**: `POST /upload`
 - **Body**: `multipart/form-data`
