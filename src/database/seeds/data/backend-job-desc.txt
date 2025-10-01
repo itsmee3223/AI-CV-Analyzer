@@ -1,0 +1,29 @@
+Position: Backend Engineer
+
+About the Company:
+We are a rapidly growing technology company focused on developing innovative SaaS solutions for the logistics industry. Our team is composed of individuals who are passionate about solving complex problems and creating impactful products.
+
+Job Description:
+As a Backend Engineer, you will be responsible for designing, developing, and maintaining the server-side applications that form the backbone of our products. You will work closely with the frontend, product, and design teams to build reliable, scalable, and secure APIs.
+
+Key Responsibilities:
+- Design and build efficient microservices architecture.
+- Develop and maintain RESTful APIs for web and mobile applications.
+- Write clean, well-tested, and maintainable code.
+- Manage and optimize databases (SQL & NoSQL) to ensure performance and reliability.
+- Collaborate throughout the product development lifecycle, from planning to deployment.
+- Troubleshoot and debug to ensure system stability.
+
+Required Qualifications:
+- A minimum of 3 years of experience in backend development.
+- Proficiency in one of the following programming languages: Node.js (TypeScript), Go, or Python.
+- In-depth experience with databases such as PostgreSQL and MongoDB.
+- A strong understanding of API design, system architecture, and software design patterns.
+- Familiarity with Git for version control.
+- Ability to write unit and integration tests.
+
+Preferred Qualifications (Nice-to-have):
+- Experience with cloud platforms like AWS or Google Cloud Platform.
+- Experience with containerization technologies (Docker) and orchestration (Kubernetes).
+- Familiarity with CI/CD concepts and related tools (e.g., Jenkins, GitLab CI).
+- An understanding of message queues such as RabbitMQ or Kafka.

@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # 1. Layanan API NestJS (Aplikasi Utama)
+  app:
+    build:
+      context: .
+      target: development
+    container_name: api_service
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: pnpm run start:dev
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+
+  # 2. Layanan Worker NestJS (Proses Latar Belakang)
+  worker:
+    build:
+      context: .
+      target: development
+    container_name: worker_service
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: pnpm run start:worker
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+
+  # 3. Database PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # 4. Redis untuk Job Queue
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis_stack
+    ports:
+      - '6379:6379'
+      - '8001:8001'
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+
+  # 5. Vector DB (ChromaDB)
+  vector-db:
+    image: chromadb/chroma:latest
+    container_name: chroma_vector_db
+    ports:
+      - '8000:8000'
+    volumes:
+      - chroma_data:/chroma/chroma
+    networks:
+      - app-network
+
+  # 6. MinIO S3 Storage
+  minio:
+    image: minio/minio:latest
+    container_name: minio_storage
+    command: server /data --console-address ":9001"
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+    volumes:
+      - minio_data:/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  minio_data:
+
+networks:
+  app-network:
+    driver: bridge

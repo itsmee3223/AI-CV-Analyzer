@@ -1,0 +1,33 @@
+Project Assessment Rubric - Backend Engineer
+
+This rubric is used to objectively evaluate a candidate's technical project. Each criterion is scored from 1 (Poor) to 5 (Excellent).
+
+1. Correctness (Functional Accuracy)
+   - Does the application work according to all given specifications?
+   - Score 1: The application fails to run or has critical errors.
+   - Score 3: The application runs, but some key functionalities are broken or produce incorrect output.
+   - Score 5: All functionalities work perfectly as specified, including handling edge cases.
+
+2. Code Quality
+   - Is the code clean, well-structured, and easy to read/maintain?
+   - Score 1: The code is very difficult to read, inconsistent, and unstructured.
+   - Score 3: The code is generally readable but has areas for improvement, such as overly long functions or unclear variable names.
+   - Score 5: The code is exceptionally clean, follows SOLID principles, uses consistent naming, and is well-structured (e.g., separation of concerns).
+
+3. Resilience & Error Handling
+   - How well does the application handle invalid inputs, external failures, or unexpected conditions?
+   - Score 1: The application frequently crashes on invalid input and has no error handling.
+   - Score 3: Basic error handling (try-catch) is present but is not comprehensive. The application can still crash in some scenarios.
+   - Score 5: Robust error handling, complete input validation, and provides informative error responses to the user/client.
+
+4. Documentation
+   - Is the project well-documented?
+   - Score 1: No documentation at all.
+   - Score 3: Some documentation exists (e.g., a README), but it is incomplete. The steps to run the project are unclear.
+   - Score 5: Documentation is very clear and complete, covering installation, configuration, and API usage examples (e.g., using a Postman collection or OpenAPI/Swagger). In-code comments are used effectively.
+
+5. Creativity / Problem-Solving Approach
+   - Does the candidate demonstrate an efficient or clever approach to solving the problem?
+   - Score 1: The solution is very basic and inefficient.
+   - Score 3: Uses a standard approach that solves the problem correctly.
+   - Score 5: Uses an elegant, efficient approach or demonstrates a deep understanding of the technology to create an optimal solution.

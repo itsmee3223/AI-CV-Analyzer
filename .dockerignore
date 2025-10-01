@@ -1,0 +1,14 @@
+# Abaikan folder dependensi lokal
+node_modules
+
+# Abaikan folder hasil build
+dist
+
+# Abaikan folder git
+.git
+
+# Abaikan environment file lokal
+# .env
+
+# Abaikan log pnpm
+pnpm-debug.log
